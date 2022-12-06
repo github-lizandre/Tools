@@ -1,6 +1,0 @@
-C:\Users\jvl.STUDIEL\Desktop\repo\Tools\bin\Debug\Tools.dll
-C:\Users\jvl.STUDIEL\Desktop\repo\Tools\bin\Debug\Tools.pdb
-C:\Users\jvl.STUDIEL\Desktop\repo\Tools\obj\Debug\Tools.csproj.AssemblyReference.cache
-C:\Users\jvl.STUDIEL\Desktop\repo\Tools\obj\Debug\Tools.csproj.CoreCompileInputs.cache
-C:\Users\jvl.STUDIEL\Desktop\repo\Tools\obj\Debug\Tools.dll
-C:\Users\jvl.STUDIEL\Desktop\repo\Tools\obj\Debug\Tools.pdb

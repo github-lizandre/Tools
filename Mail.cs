@@ -104,6 +104,10 @@ namespace Tools
                 Body = body,
                 IsBodyHtml = IsBodyHtml
             };
+            message.Headers.Add("Message-Id",
+                         String.Format("<{0}@{1}>",
+                         Guid.NewGuid().ToString(),
+                        from));
             SmtpClient client = new SmtpClient(_smtpAddress)
             {
                 Port = _smtpPort
