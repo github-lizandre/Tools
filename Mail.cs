@@ -15,7 +15,6 @@ namespace Tools
     {
         private static string _smtpAddress = "";
         private static int _smtpPort = 0;
-        private static string _body = "";
         private static string _from = "";
         private static string _smtpLogin;
         private static string _smtpPassword;
@@ -26,15 +25,12 @@ namespace Tools
             _smtpPort = Int32.Parse(ConfigurationManager.AppSettings["smtpPort"]);
             _smtpLogin = ConfigurationManager.AppSettings["smtpLogin"];
             _smtpPassword = ConfigurationManager.AppSettings["smtpPassword"];
-            string bodyFile = ConfigurationManager.AppSettings["mailBodyFile"];
-            if (File.Exists(bodyFile))
-                _body = File.ReadAllText(bodyFile);
             _from = ConfigurationManager.AppSettings["mailFrom"];
         }
 
-        public static void SendMailAndFile(string to, string subject, string file)
+        public static void SendMailAndFiles(string to, string subject, string body, List<string> files)
         {
-            SendMailAndFile(_from, to, subject, _body, file);
+            SendMailAndFiles(_from, to, subject, body, files);
         }
 
         public static void SendMailHtml(string to, string subject, string body)
@@ -42,7 +38,7 @@ namespace Tools
             SendMail(_from, to, subject, body, true);
         }
 
-        public static void SendMailAndFile(string from, string to, string subject, string body, string file)
+        public static void SendMailAndFiles(string from, string to, string subject, string body, List<string> files)
         {
             MailMessage message = new MailMessage(from, to)
             {
@@ -64,16 +60,19 @@ namespace Tools
 
             //client.EnableSsl = true;
 
-            Attachment data = new Attachment(file, MediaTypeNames.Application.Octet);
+            foreach (string file in files)
+            {
+                Attachment data = new Attachment(file, MediaTypeNames.Application.Octet);
 
-            // Add time stamp information for the file.
-            ContentDisposition disposition = data.ContentDisposition;
-            disposition.CreationDate = System.IO.File.GetCreationTime(file);
-            disposition.ModificationDate = System.IO.File.GetLastWriteTime(file);
-            disposition.ReadDate = System.IO.File.GetLastAccessTime(file);
+                // Add time stamp information for the file.
+                ContentDisposition disposition = data.ContentDisposition;
+                disposition.CreationDate = System.IO.File.GetCreationTime(file);
+                disposition.ModificationDate = System.IO.File.GetLastWriteTime(file);
+                disposition.ReadDate = System.IO.File.GetLastAccessTime(file);
 
-            // Add the file attachment to this email message.
-            message.Attachments.Add(data);
+                // Add the file attachment to this email message.
+                message.Attachments.Add(data);
+            }
 
 
             try
