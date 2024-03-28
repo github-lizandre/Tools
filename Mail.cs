@@ -103,10 +103,10 @@ namespace Tools
                 Body = body,
                 IsBodyHtml = IsBodyHtml
             };
-            message.Headers.Add("Message-Id",
-                         String.Format("<{0}@{1}>",
-                         Guid.NewGuid().ToString(),
-                        from));
+            //message.Headers.Add("Message-Id",
+            //             String.Format("<{0}@{1}>",
+            //             Guid.NewGuid().ToString(),
+            //            from));
             message.Headers.Add("Content-type", "text/html; charset= iso-8859-1");
             SmtpClient client = new SmtpClient(_smtpAddress)
             {
